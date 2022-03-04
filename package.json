@@ -1,0 +1,32 @@
+{
+  "name": "transda",
+  "version": "0.1.0",
+  "description": "Utility library, like ramda but specialized in transducers. Just a PoC.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write .",
+    "lint": "prettier --check .",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xgbuils/transda.git"
+  },
+  "keywords": [
+    "functional",
+    "transducers",
+    "ramda",
+    "poc"
+  ],
+  "author": "Xavier Garcia Buils <xgbuils@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xgbuils/transda/issues"
+  },
+  "homepage": "https://github.com/xgbuils/transda#readme",
+  "devDependencies": {
+    "mocha": "^9.2.1",
+    "prettier": "^2.5.1"
+  }
+}
