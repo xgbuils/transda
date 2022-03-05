@@ -1,7 +1,6 @@
 export class Transducer {
   constructor(xf) {
     this.xf = xf;
-    this["@@transducer/reduced"] = xf["@@transducer/reduced"];
   }
   "@@transducer/init"() {
     return this.xf["@@transducer/init"]();

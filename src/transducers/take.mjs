@@ -1,19 +1,27 @@
-import { Transducer } from "./Transducer.mjs";
-
-class XTake extends Transducer {
+class XTake {
   constructor(n, xf) {
-    super(xf);
+    this.xf = xf;
     this.n = n;
   }
   "@@transducer/init"() {
-    this["@@transducer/stop"](this.n <= 0);
-    return this.xf["@@transducer/init"]();
+    const wrapper = this.xf["@@transducer/init"]();
+    return this.n > 0
+      ? wrapper
+      : {
+          result: wrapper.result,
+          reduced: true,
+        };
   }
   "@@transducer/step"(acc, input) {
-    const result = this.xf["@@transducer/step"](acc, input);
+    const wrapper = this.xf["@@transducer/step"](acc, input);
     this.n -= 1;
-    this["@@transducer/stop"](this.n <= 0);
-    return result;
+    if (this.n <= 0) {
+      wrapper.reduced = true;
+    }
+    return wrapper;
+  }
+  "@@transducer/result"(result) {
+    return this.xf["@@transducer/result"](result);
   }
 }
 
