@@ -1,15 +1,13 @@
-function XMap(f, xf) {
-  this.f = f;
-  this.xf = xf;
+import { Transducer } from "./Transducer.mjs";
+
+class XMap extends Transducer {
+  constructor(f, xf) {
+    super(xf);
+    this.f = f;
+  }
+  "@@transducer/step"(result, input) {
+    return this.xf["@@transducer/step"](result, this.f(input));
+  }
 }
-XMap.prototype["@@transducer/init"] = function () {
-  return this.xf["@@transducer/init"]();
-};
-XMap.prototype["@@transducer/step"] = function (result, input) {
-  return this.xf["@@transducer/step"](result, this.f(input));
-};
-XMap.prototype["@@transducer/result"] = function (result) {
-  return this.xf["@@transducer/result"](result);
-};
 
 export const map = (f) => (xf) => new XMap(f, xf);
