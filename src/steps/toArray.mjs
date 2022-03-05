@@ -1,4 +1,4 @@
-export const fromArray = (list) => ({
+export const toArray = (list) => ({
   "@@transducer/init"() {
     return [...list];
   },
