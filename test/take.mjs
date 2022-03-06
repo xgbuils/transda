@@ -1,4 +1,5 @@
 import * as assert from "assert";
+import { range } from "../src/generators/range.mjs";
 import { map } from "../src/transducers/map.mjs";
 import { take } from "../src/transducers/take.mjs";
 import { compose } from "../src/compose.mjs";
@@ -7,29 +8,39 @@ import { toArray } from "../src/steps/toArray.mjs";
 
 describe("take", function () {
   describe("toArray step", () => {
-    it("empty list", function () {
+    it("empty array", function () {
       const step = toArray([]);
       assert.deepEqual(transduce(take(3), step, []), []);
     });
 
-    it("non empty list, take 0", function () {
+    it("non empty array, take 0", function () {
       const step = toArray([]);
       assert.deepEqual(transduce(take(0), step, [1, 2, 3, 4]), []);
     });
 
-    it("non empty list, take less than length", function () {
+    it("non empty array, take less than length", function () {
       const step = toArray([]);
       assert.deepEqual(transduce(take(2), step, [1, 2, 3, 4]), [1, 2]);
     });
 
-    it("non empty list, take the same as length", function () {
+    it("non empty array, take the same as length", function () {
       const step = toArray([]);
       assert.deepEqual(transduce(take(4), step, [1, 2, 3, 4]), [1, 2, 3, 4]);
     });
 
-    it("non empty list, take more than length", function () {
+    it("non empty array, take more than length", function () {
       const step = toArray([]);
       assert.deepEqual(transduce(take(6), step, [1, 2, 3, 4]), [1, 2, 3, 4]);
+    });
+
+    it("empty iterable", function () {
+      const step = toArray([]);
+      assert.deepEqual(transduce(take(3), step, range(1, 0)), []);
+    });
+
+    it("non empty iterable, take some elements", function () {
+      const step = toArray([]);
+      assert.deepEqual(transduce(take(3), step, range(1, Infinity)), [1, 2, 3]);
     });
   });
 
