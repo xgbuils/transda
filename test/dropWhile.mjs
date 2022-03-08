@@ -36,13 +36,13 @@ describe("dropWhile", function () {
 
     it("empty iterable", function () {
       const step = toArray([]);
-      assert.deepEqual(transduce(dropWhile(isOdd), step, range(0, -1)), []);
+      assert.deepEqual(transduce(dropWhile(isOdd), step, range(0, 0)), []);
     });
 
     it("non empty iterable", function () {
       const step = toArray([]);
       assert.deepEqual(
-        transduce(dropWhile(isOdd), step, range(1, 4)),
+        transduce(dropWhile(isOdd), step, range(1, 5)),
         [2, 3, 4]
       );
     });

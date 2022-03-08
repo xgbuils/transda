@@ -1,6 +1,6 @@
-export const range = (a, b) => ({
+export const range = (from, to) => ({
   *[Symbol.iterator]() {
-    for (let index = a; index <= b; ++index) {
+    for (let index = from; index < to; ++index) {
       yield index;
     }
   },

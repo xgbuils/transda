@@ -21,13 +21,13 @@ describe("map", function () {
     it("empty iterable", function () {
       const double = (x) => 2 * x;
       const step = toArray([]);
-      assert.deepEqual(transduce(map(double), step, range(0, -1)), []);
+      assert.deepEqual(transduce(map(double), step, range(0, 0)), []);
     });
 
     it("non empty iterable", function () {
       const double = (x) => 2 * x;
       const step = toArray([]);
-      assert.deepEqual(transduce(map(double), step, range(1, 4)), [2, 4, 6, 8]);
+      assert.deepEqual(transduce(map(double), step, range(1, 5)), [2, 4, 6, 8]);
     });
   });
 });

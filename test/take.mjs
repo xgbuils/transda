@@ -35,7 +35,7 @@ describe("take", function () {
 
     it("empty iterable", function () {
       const step = toArray([]);
-      assert.deepEqual(transduce(take(3), step, range(1, 0)), []);
+      assert.deepEqual(transduce(take(3), step, range(1, 1)), []);
     });
 
     it("non empty iterable, take some elements", function () {
