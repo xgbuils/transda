@@ -24,8 +24,8 @@ const iteratorReduce = (xf, init, iterator) => {
 const symbolIterator = Symbol.iterator;
 const isIterable = (list) => typeof list[symbolIterator] === "function";
 
-export const reduce = (xf, list) => {
-  let wrapper = xf["@@transducer/init"]();
+export const reduce = (xf, init, list) => {
+  let wrapper = init;
   if (Array.isArray(list)) {
     return arrayReduce(xf, wrapper, list);
   }
