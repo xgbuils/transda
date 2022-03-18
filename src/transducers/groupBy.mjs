@@ -1,4 +1,4 @@
-import { reduce } from "../reduce.mjs";
+import { reduce } from "../context/reduce.mjs";
 
 class XGroupBy {
   constructor(keyFn, outerXf, innerXf) {

@@ -1,13 +1,26 @@
 import * as assert from "assert";
 import { range } from "../src/generators/range.mjs";
-import { map } from "../src/transducers/map.mjs";
-import { take } from "../src/transducers/take.mjs";
+import { map, take } from "../src/index.mjs";
 import { compose } from "../src/compose.mjs";
-import { transduce } from "../src/transduce.mjs";
+import { transduce } from "../src/context/transduce.mjs";
 import { toArray } from "../src/steps/toArray.mjs";
 
 describe("take", function () {
-  describe("toArray step", () => {
+  describe("list", () => {
+    it("empty array", function () {
+      assert.deepEqual(take(3)([]), []);
+    });
+
+    it("non empty array, take some items", function () {
+      assert.deepEqual(take(4)([6, 5, 4, 3, 2, 1]), [6, 5, 4, 3]);
+    });
+
+    it("non empty iterable, take some items", function () {
+      assert.deepEqual([...take(4)(range(0, 10))], [0, 1, 2, 3]);
+    });
+  });
+
+  describe("transduce - toArray step", () => {
     it("empty array", function () {
       const step = toArray([]);
       assert.deepEqual(transduce(take(3), step, []), []);
@@ -44,7 +57,7 @@ describe("take", function () {
     });
   });
 
-  describe("composition", () => {
+  describe("transduce - composition", () => {
     const double = (x) => 2 * x;
 
     it("take and then map", () => {

@@ -1,9 +1,8 @@
 import * as assert from "assert";
 import { groupBy } from "../src/transducers/groupBy.mjs";
-import { map } from "../src/transducers/map.mjs";
 import { take } from "../src/transducers/take.mjs";
 import { compose } from "../src/compose.mjs";
-import { transduce } from "../src/transduce.mjs";
+import { transduce } from "../src/context/transduce.mjs";
 import { toArray } from "../src/steps/toArray.mjs";
 import { dropWhile } from "../src/transducers/dropWhile.mjs";
 import { range } from "../src/generators/range.mjs";

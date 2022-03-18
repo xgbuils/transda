@@ -1,13 +1,31 @@
 import * as assert from "assert";
-import { dropWhile } from "../src/transducers/dropWhile.mjs";
-import { transduce } from "../src/transduce.mjs";
+import { dropWhile } from "../src/index.mjs";
+import { transduce } from "../src/context/transduce.mjs";
 import { toArray } from "../src/steps/toArray.mjs";
 import { range } from "../src/generators/range.mjs";
 
-describe("dropWhile", function () {
-  describe("toArray step", () => {
-    const isOdd = (x) => x % 2 === 1;
+const isOdd = (x) => x % 2 === 1;
 
+describe("dropWhile", function () {
+  describe("list", () => {
+    it("empty array", function () {
+      assert.deepEqual(dropWhile(isOdd)([]), []);
+    });
+
+    it("non empty array with some dropped items", function () {
+      const step = toArray([]);
+      assert.deepEqual(
+        dropWhile(isOdd)([1, 3, 5, 2, 4, 7, 9, 6]),
+        [2, 4, 7, 9, 6]
+      );
+    });
+
+    it("non empty iterable, take some items", function () {
+      assert.deepEqual([...dropWhile(isOdd)(range(1, 6))], [2, 3, 4, 5]);
+    });
+  });
+
+  describe("transduce - toArray step", () => {
     it("empty array", function () {
       const step = toArray([]);
       assert.deepEqual(transduce(dropWhile(isOdd), step, []), []);
