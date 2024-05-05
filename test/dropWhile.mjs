@@ -9,19 +9,19 @@ const isOdd = (x) => x % 2 === 1;
 describe("dropWhile", function () {
   describe("list", () => {
     it("empty array", function () {
-      assert.deepEqual(dropWhile(isOdd)([]), []);
+      assert.deepEqual(dropWhile(isOdd, []), []);
     });
 
     it("non empty array with some dropped items", function () {
       const step = toArray([]);
       assert.deepEqual(
-        dropWhile(isOdd)([1, 3, 5, 2, 4, 7, 9, 6]),
+        dropWhile(isOdd, [1, 3, 5, 2, 4, 7, 9, 6]),
         [2, 4, 7, 9, 6]
       );
     });
 
     it("non empty iterable, take some items", function () {
-      assert.deepEqual([...dropWhile(isOdd)(range(1, 6))], [2, 3, 4, 5]);
+      assert.deepEqual([...dropWhile(isOdd, range(1, 6))], [2, 3, 4, 5]);
     });
   });
 

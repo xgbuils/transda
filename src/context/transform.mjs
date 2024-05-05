@@ -24,9 +24,11 @@ export const isArrayLike = (x) => {
   return false;
 };
 
-export const transform = (transducer, list) => {
+export const transform = (transducer, step, list) => {
   if (isArrayLike(list)) {
-    return transduce(transducer, toArray([]), list);
+    return transduce(transducer, step, list);
+  } else if (list[Symbol.iterator]) {
+    return educe(transducer, step, list);
   }
-  return educe(transducer, list);
+  return; //list;
 };

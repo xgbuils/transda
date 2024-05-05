@@ -8,15 +8,15 @@ import { toArray } from "../src/steps/toArray.mjs";
 describe("take", function () {
   describe("list", () => {
     it("empty array", function () {
-      assert.deepEqual(take(3)([]), []);
+      assert.deepEqual(take(3, []), []);
     });
 
     it("non empty array, take some items", function () {
-      assert.deepEqual(take(4)([6, 5, 4, 3, 2, 1]), [6, 5, 4, 3]);
+      assert.deepEqual(take(4, [6, 5, 4, 3, 2, 1]), [6, 5, 4, 3]);
     });
 
     it("non empty iterable, take some items", function () {
-      assert.deepEqual([...take(4)(range(0, 10))], [0, 1, 2, 3]);
+      assert.deepEqual([...take(4, range(0, 10))], [0, 1, 2, 3]);
     });
   });
 
@@ -63,7 +63,7 @@ describe("take", function () {
     it("take and then map", () => {
       const step = toArray([]);
       assert.deepEqual(
-        transduce(compose(map(double), take(2)), step, [1, 2, 3]),
+        transduce(compose([map(double), take(2)]), step, [1, 2, 3]),
         [2, 4]
       );
     });
@@ -71,18 +71,18 @@ describe("take", function () {
     it("map and then take", () => {
       const step = toArray([]);
       assert.deepEqual(
-        transduce(compose(take(2), map(double)), step, [1, 2, 3]),
+        transduce(compose([take(2), map(double)]), step, [1, 2, 3]),
         [2, 4]
       );
     });
 
     it("take and then take", () => {
       assert.deepEqual(
-        transduce(compose(take(1), take(2)), toArray([]), [1, 2, 3]),
+        transduce(compose([take(1), take(2)]), toArray([]), [1, 2, 3]),
         [1]
       );
       assert.deepEqual(
-        transduce(compose(take(2), take(1)), toArray([]), [1, 2, 3]),
+        transduce(compose([take(2), take(1)]), toArray([]), [1, 2, 3]),
         [1]
       );
     });

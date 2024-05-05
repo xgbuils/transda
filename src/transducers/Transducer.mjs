@@ -1,16 +1,10 @@
 export class Transducer {
-  constructor(xf) {
-    this.xf = xf;
+  constructor(transducer) {
+    this.transducer = transducer;
   }
-  "@@transducer/init"() {
-    return this.xf["@@transducer/init"]();
-  }
-  "@@transducer/result"(result) {
-    return this.xf["@@transducer/result"](result);
-  }
-  "@@transducer/stop"(stop) {
-    if (stop) {
-      this["@@transducer/reduced"] = stop;
-    }
+  call(xf) {
+    return this.transducer(xf);
   }
 }
+
+export const identityTransducer = new Transducer((xf) => xf);

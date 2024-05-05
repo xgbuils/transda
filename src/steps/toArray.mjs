@@ -1,3 +1,5 @@
+import { Transducer, identityTransducer } from "../transducers/Transducer.mjs";
+
 export const toArray = (list) => ({
   "@@transducer/init"() {
     return { result: [...list] };
@@ -9,4 +11,5 @@ export const toArray = (list) => ({
   "@@transducer/result"(result) {
     return result;
   },
+  "@@transducer/inner-xd": identityTransducer,
 });

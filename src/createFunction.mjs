@@ -1,13 +1,12 @@
-const isTransformer = (obj) => typeof obj["@@transducer/step"] === "function";
+import { transform } from "./context/transform.mjs";
+import { toArray } from "./steps/toArray.mjs";
 
 export const createFunction =
-  (transformation, transducerCreator) =>
+  (length, transducerCreator) =>
   (...args) => {
     const transducer = transducerCreator(...args);
-    return (obj) => {
-      if (isTransformer(obj)) {
-        return transducer(obj);
-      }
-      return transformation(transducer, obj);
-    };
+    if (args.length === length) {
+      return transform(transducer, toArray([]), args[args.length - 1]);
+    }
+    return transducer;
   };

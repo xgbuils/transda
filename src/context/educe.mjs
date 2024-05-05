@@ -1,8 +1,8 @@
 import { toArray } from "../steps/toArray.mjs";
 
-export const educe = (transducer, iterable) => ({
+export const educe = (transducer, step, iterable) => ({
   *[Symbol.iterator]() {
-    const transformer = transducer(toArray([]));
+    const transformer = transducer.call(step);
     for (const item of iterable) {
       const wrapper = transformer["@@transducer/step"]([], item);
       yield* wrapper.result;

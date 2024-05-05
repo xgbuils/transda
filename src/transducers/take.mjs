@@ -1,9 +1,12 @@
-class XTake {
+import { Transducer } from "./Transducer.mjs";
+import { createTransformerClass } from "./createTransformer.mjs";
+
+const XTake = createTransformerClass({
   constructor(n, xf) {
     this.xf = xf;
     this.n = n;
-  }
-  "@@transducer/init"() {
+  },
+  init() {
     const wrapper = this.xf["@@transducer/init"]();
     return this.n > 0
       ? wrapper
@@ -11,18 +14,15 @@ class XTake {
           result: wrapper.result,
           reduced: true,
         };
-  }
-  "@@transducer/step"(acc, input) {
+  },
+  step(acc, input) {
     const wrapper = this.xf["@@transducer/step"](acc, input);
     this.n -= 1;
     if (this.n <= 0) {
       wrapper.reduced = true;
     }
     return wrapper;
-  }
-  "@@transducer/result"(result) {
-    return this.xf["@@transducer/result"](result);
-  }
-}
+  },
+});
 
-export const take = (f) => (xf) => new XTake(f, xf);
+export const take = (n) => new Transducer((xf) => new XTake(n, xf));
